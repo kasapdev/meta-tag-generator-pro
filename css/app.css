@@ -1,0 +1,220 @@
+/* =====================================================================
+   Meta Tag Generator Pro — app.css
+   Extends the shared design system (base.css). Colors derive from
+   base.css CSS variables EXCEPT where deliberately replicating real
+   brand mockup chrome (Google SERP colors, X/Twitter/Discord-style
+   card chrome) — each such spot is called out with a comment below.
+   ===================================================================== */
+
+/* ---- Theme toggle icon swap (sun in dark, moon in light) ---- */
+[data-theme="light"] .icon-sun { display: none; }
+.icon-moon { display: none; }
+[data-theme="light"] .icon-moon { display: inline; }
+
+/* ===================== Layout ===================== */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 460px) minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: start;
+}
+.preview-col { min-width: 0; }
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+}
+.panel-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.preview-panel .panel-title { margin-bottom: var(--space-4); }
+
+/* ===================== Form ===================== */
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.field-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-size: 12px;
+}
+.counter { color: var(--text-muted); }
+.counter--ok { color: var(--success); }
+.counter--warn { color: var(--warning); }
+.counter--danger { color: var(--danger); }
+
+#fThemeColor {
+  -webkit-appearance: none; appearance: none;
+  width: 44px; height: 40px; padding: 3px;
+  border: 1px solid var(--border); border-radius: var(--radius-md);
+  background: var(--surface); cursor: pointer; flex: none;
+}
+#fThemeColor::-webkit-color-swatch-wrapper { padding: 0; }
+#fThemeColor::-webkit-color-swatch { border: none; border-radius: 8px; }
+#fThemeColorHex { max-width: 110px; }
+
+/* ===================== Google SERP mockup =====================
+   Google's search result chrome always renders on a white surface
+   with fixed brand colors, regardless of a visiting site's own theme.
+   These colors are intentionally hardcoded to match real Google SERP
+   visual conventions, not sourced from base.css tokens. */
+.google-preview {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  font-family: arial, sans-serif;
+}
+.google-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: 3px;
+}
+.google-favicon-wrap {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #f1f3f4; display: grid; place-items: center; flex: none; overflow: hidden;
+}
+.google-favicon { width: 100%; height: 100%; object-fit: cover; }
+.google-favicon-wrap svg { width: 14px; height: 14px; color: #5f6368; }
+.google-sitename { color: #202124; font-size: 14px; font-weight: 400; }
+.google-breadcrumb { color: #4d5156; font-size: 12px; margin: 0 0 2px 30px; word-break: break-word; }
+.google-title {
+  display: block; color: #1a0dab; font-size: 20px; line-height: 1.3;
+  margin: 0 0 3px; text-decoration: none; cursor: default;
+  font-family: arial, sans-serif;
+}
+.google-title:hover { text-decoration: underline; color: #1a0dab; }
+.google-desc { color: #4d5156; font-size: 14px; line-height: 1.55; margin: 0; }
+
+/* ===================== Twitter / X card mockup =====================
+   Real X cards use a bordered rounded container with a strict image /
+   text ratio. Chrome (border radius, image ratio) matches X's real
+   layout conventions; surface colors come from base.css tokens so the
+   card still adapts to the app's own dark/light theme. */
+.twitter-card {
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--surface-solid);
+  display: flex;
+  flex-direction: column;
+}
+.twitter-card[data-card="summary"] { flex-direction: row; }
+
+.twitter-media {
+  position: relative;
+  background: var(--surface-3);
+  overflow: hidden;
+  flex: none;
+}
+.twitter-card[data-card="summary_large_image"] .twitter-media {
+  width: 100%; aspect-ratio: 1.91 / 1;
+}
+.twitter-card[data-card="summary"] .twitter-media {
+  width: 96px; height: 96px;
+}
+.twitter-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.twitter-body { padding: 10px 14px; min-width: 0; flex: 1; }
+.twitter-domain { color: var(--text-muted); font-size: 13px; margin-bottom: 2px; }
+.twitter-title { color: var(--text); font-size: 15px; font-weight: 700; line-height: 1.3; margin-bottom: 2px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.twitter-desc { color: var(--text-muted); font-size: 14px; line-height: 1.35; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.twitter-card[data-card="summary"] .twitter-title,
+.twitter-card[data-card="summary"] .twitter-desc { -webkit-line-clamp: 2; }
+
+/* ===================== Generic link-preview card =====================
+   Styled after Discord/Slack/iMessage rich-link embeds: a left accent
+   bar and slightly tighter chrome than the Twitter card, to stay
+   visually distinct while still theme-driven via base.css tokens. */
+.link-card {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--brand-500);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface-2);
+  display: flex;
+  flex-direction: column;
+}
+.link-media {
+  width: 100%;
+  aspect-ratio: 1.91 / 1;
+  background: var(--surface-3);
+  position: relative;
+  overflow: hidden;
+  flex: none;
+}
+.link-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.link-body { padding: 12px 14px; }
+.link-domain { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: .03em; margin-bottom: 4px; }
+.link-title { color: var(--text); font-size: 15px; font-weight: 700; line-height: 1.3; margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.link-desc { color: var(--text-secondary); font-size: 13.5px; line-height: 1.45; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+
+/* Shared image fallback box */
+.media-fallback {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); font-size: 13px; font-weight: 600; letter-spacing: .02em;
+  background: var(--surface-3);
+}
+
+/* ===================== Generated snippet ===================== */
+.snippet-panel { margin-top: var(--space-5); }
+.theme-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 10px; border-radius: var(--radius-full);
+  background: var(--surface-2); border: 1px solid var(--border);
+  font-size: 12px; color: var(--text-secondary);
+}
+.theme-chip-swatch {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 1px solid var(--border-strong); flex: none;
+}
+.snippet-output {
+  margin: 0;
+  padding: var(--space-5);
+  background: var(--surface-solid);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+  color: var(--text-secondary);
+}
+
+/* ===================== Shortcuts modal table ===================== */
+.shortcut-table { width: 100%; border-collapse: collapse; }
+.shortcut-table td {
+  padding: 10px 4px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+.shortcut-table tr:last-child td { border-bottom: none; }
+.shortcut-table td:last-child { text-align: right; white-space: nowrap; }
+.shortcut-table kbd + kbd { margin-left: 4px; }
+
+/* ===================== Responsive ===================== */
+@media (max-width: 980px) {
+  .layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .panel-head { flex-direction: column; align-items: flex-start; }
+  .twitter-card[data-card="summary"] .twitter-media { width: 76px; height: 76px; }
+}
+@media (max-width: 460px) {
+  .google-title { font-size: 18px; }
+  .theme-chip { display: none; }
+}

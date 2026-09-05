@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08090d">
+  <meta name="description" content="Build and preview Open Graph, Twitter Card and SEO meta tags with live Google, X and link-preview mockups — a fast, private, offline meta tag generator.">
+  <title>Meta Tag Generator Pro — Web Utility Suite</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <header class="topbar container">
+    <a class="brand" href="https://github.com/kasapdev/meta-tag-generator-pro" aria-label="Meta Tag Generator Pro">
+      <span class="logo" aria-hidden="true">
+        <!-- tag icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2H2v10l9.29 9.29a1 1 0 0 0 1.42 0l8.58-8.58a1 1 0 0 0 0-1.42Z"/>
+          <path d="M7 7h.01"/>
+        </svg>
+      </span>
+      <span class="col" style="gap:0">
+        <span>Meta Tag Generator Pro</span>
+        <span class="sub">Web Utility Suite</span>
+      </span>
+    </a>
+    <span class="spacer"></span>
+
+    <button class="btn btn--icon" data-shortcut-help title="Keyboard shortcuts (?)" aria-label="Keyboard shortcuts">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2" y="4" width="20" height="16" rx="2"/>
+        <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M7 16h10"/>
+      </svg>
+    </button>
+    <button class="btn btn--icon" data-theme-toggle title="Toggle theme" aria-label="Toggle theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/>
+      </svg>
+    </button>
+  </header>
+
+  <main class="container">
+    <div class="layout">
+      <!-- Form panel -->
+      <section class="panel form-panel fade-in" aria-label="Meta tag inputs">
+        <div class="panel-head">
+          <h2 class="panel-title">Page details</h2>
+          <div class="row gap-2">
+            <button id="btnExample" class="btn btn--sm btn--ghost" title="Load example content">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+              Load example
+            </button>
+            <button id="btnClear" class="btn btn--sm btn--ghost" title="Clear all fields">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+              Clear
+            </button>
+          </div>
+        </div>
+
+        <form id="metaForm" class="form-grid" autocomplete="off">
+          <div class="field">
+            <label for="fTitle">Page Title</label>
+            <input type="text" id="fTitle" maxlength="200" placeholder="A great, descriptive page title">
+            <div class="field-meta">
+              <span id="titleCount" class="counter mono">0 / 60</span>
+              <span id="titleWarn" class="muted"></span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="fDescription">Meta Description</label>
+            <textarea id="fDescription" rows="3" maxlength="400" placeholder="A concise summary of the page that entices a click"></textarea>
+            <div class="field-meta">
+              <span id="descCount" class="counter mono">0 / 160</span>
+              <span id="descWarn" class="muted"></span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="fSiteName">Site Name</label>
+            <input type="text" id="fSiteName" placeholder="Your Site Name">
+          </div>
+
+          <div class="field">
+            <label for="fCanonical">Canonical URL</label>
+            <input type="url" id="fCanonical" placeholder="https://example.com/path/to/page">
+          </div>
+
+          <div class="field">
+            <label for="fImage">OG Image URL</label>
+            <input type="url" id="fImage" placeholder="https://example.com/images/social-card.jpg">
+          </div>
+
+          <div class="row gap-4 wrap">
+            <div class="field flex-1">
+              <label for="fOgType">OG Type</label>
+              <select id="fOgType">
+                <option value="website">website</option>
+                <option value="article">article</option>
+                <option value="product">product</option>
+                <option value="profile">profile</option>
+                <option value="video.other">video.other</option>
+              </select>
+            </div>
+            <div class="field flex-1">
+              <label for="fTwitterCard">Twitter Card Type</label>
+              <select id="fTwitterCard">
+                <option value="summary_large_image">summary_large_image</option>
+                <option value="summary">summary</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row gap-4 wrap">
+            <div class="field">
+              <label for="fThemeColor">Theme Color</label>
+              <div class="row gap-2 center">
+                <input type="color" id="fThemeColor" value="#6366f1" aria-label="Theme color picker">
+                <input type="text" id="fThemeColorHex" class="mono" value="#6366f1" maxlength="7" placeholder="#6366f1" aria-label="Theme color hex value">
+              </div>
+            </div>
+            <div class="field flex-1">
+              <label for="fFavicon">Favicon URL</label>
+              <input type="text" id="fFavicon" placeholder="/favicon.ico">
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- Preview column -->
+      <div class="col gap-5 preview-col">
+        <section class="panel preview-panel fade-in" aria-label="Google search result preview">
+          <h2 class="panel-title">Google search result</h2>
+          <div class="google-preview" id="googlePreview">
+            <div class="google-row">
+              <span class="google-favicon-wrap">
+                <img id="googleFavicon" class="google-favicon" alt="" hidden>
+                <svg id="googleFaviconFallback" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z"/></svg>
+              </span>
+              <span id="googleSiteName" class="google-sitename">example.com</span>
+            </div>
+            <div id="googleBreadcrumb" class="google-breadcrumb"></div>
+            <a id="googleTitle" class="google-title" href="#" tabindex="-1">Your page title will appear here</a>
+            <p id="googleDesc" class="google-desc">Your meta description will appear here once you start typing above.</p>
+          </div>
+        </section>
+
+        <section class="panel preview-panel fade-in" aria-label="Twitter card preview">
+          <h2 class="panel-title">X / Twitter card</h2>
+          <div class="twitter-card" id="twitterCard">
+            <div class="twitter-media" id="twitterMedia">
+              <img id="twitterImage" alt="" hidden>
+              <div id="twitterImageFallback" class="media-fallback">No image</div>
+            </div>
+            <div class="twitter-body">
+              <div id="twitterDomain" class="twitter-domain">example.com</div>
+              <div id="twitterTitle" class="twitter-title">Your page title will appear here</div>
+              <div id="twitterDesc" class="twitter-desc">Your meta description will appear here.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel preview-panel fade-in" aria-label="Link preview card">
+          <h2 class="panel-title">Link preview (Discord / Slack / iMessage)</h2>
+          <div class="link-card" id="linkCard">
+            <div class="link-media" id="linkMedia">
+              <img id="linkImage" alt="" hidden>
+              <div id="linkImageFallback" class="media-fallback">No image</div>
+            </div>
+            <div class="link-body">
+              <div id="linkDomain" class="link-domain">example.com</div>
+              <div id="linkTitle" class="link-title">Your page title will appear here</div>
+              <div id="linkDesc" class="link-desc">Your meta description will appear here.</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Generated snippet -->
+    <section class="panel snippet-panel rise" aria-label="Generated meta tags">
+      <div class="panel-head">
+        <h2 class="panel-title">Generated &lt;head&gt; tags</h2>
+        <div class="row gap-2 center">
+          <span id="themeChip" class="theme-chip" title="Current theme-color">
+            <span id="themeChipSwatch" class="theme-chip-swatch"></span>
+            <span id="themeChipHex" class="mono">#6366f1</span>
+          </span>
+          <button id="btnCopy" class="btn btn--primary btn--sm" title="Copy snippet (Ctrl/Cmd+C)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy
+          </button>
+        </div>
+      </div>
+      <pre id="snippetOutput" class="snippet-output mono" tabindex="0"></pre>
+    </section>
+  </main>
+
+  <footer class="app-footer container">
+    Part of the <a href="https://github.com/kasapdev/meta-tag-generator-pro">Meta Tag Generator Pro</a> · MIT Licensed
+  </footer>
+
+  <!-- Shortcuts help modal -->
+  <div id="helpBackdrop" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+      <div class="row between center" style="margin-bottom:var(--space-4)">
+        <h3 id="helpTitle" style="margin:0">Keyboard shortcuts</h3>
+        <button id="helpClose" class="btn btn--icon btn--ghost" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <table class="shortcut-table">
+        <tbody id="shortcutRows"></tbody>
+      </table>
+      <p class="muted" style="margin:var(--space-4) 0 0;font-size:13px">Tip: <kbd>mod</kbd> means <kbd>Ctrl</kbd> on Windows/Linux and <kbd>⌘</kbd> on macOS.</p>
+    </div>
+  </div>
+
+  <script src="assets/js/core.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
