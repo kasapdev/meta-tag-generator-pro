@@ -253,6 +253,26 @@
     WUS.copy(lastSnippet, 'Meta tags copied to clipboard');
   }
 
+  /* mod+c is registered as a global shortcut for "copy the generated
+     snippet", but the page is full of text inputs. Without this guard,
+     pressing Ctrl/Cmd+C to copy a normal text selection (e.g. some text
+     you selected inside the Page Title field) would be hijacked and
+     silently replaced with the full meta tag snippet instead. If the
+     user has an active selection, copy that selection like the browser
+     normally would; only fall back to the snippet when nothing is
+     selected. */
+  function copySnippetOrSelection() {
+    var active = document.activeElement;
+    if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA') &&
+        typeof active.selectionStart === 'number' && active.selectionStart !== active.selectionEnd) {
+      WUS.copy(active.value.slice(active.selectionStart, active.selectionEnd), 'Selection copied to clipboard');
+      return;
+    }
+    var sel = window.getSelection ? window.getSelection().toString() : '';
+    if (sel) { WUS.copy(sel, 'Selection copied to clipboard'); return; }
+    copySnippet();
+  }
+
   var EXAMPLE = {
     title: '10 Proven Strategies to Grow Your SaaS in 2026',
     description: 'Discover ten actionable, data-backed strategies to grow your SaaS business faster in 2026 — from onboarding tweaks to pricing experiments that compound over time.',
@@ -412,7 +432,7 @@
   btnCopy.addEventListener('click', copySnippet);
   googleTitle.addEventListener('click', function (e) { e.preventDefault(); });
 
-  WUS.registerShortcut('mod+c', function () { copySnippet(); }, 'Copy generated meta tags');
+  WUS.registerShortcut('mod+c', function () { copySnippetOrSelection(); }, 'Copy generated meta tags');
   WUS.registerShortcut('?', function () { openHelp(); }, 'Show shortcuts');
 
   /* =================================================================
